@@ -1,0 +1,10 @@
+results/
+data/
+*.png
+*.mp4
+*.gif
+*.jld2
+*.h5
+*.csv
+*.mov
+*.avi
