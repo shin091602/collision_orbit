@@ -54,4 +54,4 @@ save(joinpath(DATA_DIR, "jacobi_scan_planar.jld2"),
      "lc",       all_lc,
      "C_values", C_values,
      "mu",       mu)
-println("Saved → data/jacobi_scan_planar.jld2")
+println("Saved → data/jacobi_scan/jacobi_scan_planar.jld2")
