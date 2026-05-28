@@ -15,12 +15,6 @@ tspan  = 20pi   # fictitious time for backward propagation
 
 cb_escape = ContinuousCallback((u, _, _) -> u[1]^2 + u[2]^2 - 5, terminate!)
 
-function lc2cart_or_nan(zeta, mu)
-    r = zeta[1]^2 + zeta[2]^2
-    iszero(r) && return fill(NaN, 4)
-    return lc2cart(zeta, mu)
-end
-
 buf_cart = Vector{Vector{Matrix{Float64}}}(undef, length(C_values))
 buf_lc   = Vector{Vector{Matrix{Float64}}}(undef, length(C_values))
 
@@ -33,12 +27,12 @@ Threads.@threads for j in eachindex(C_values)
         alpha = 2π * k / N_angles
         zeta0 = [0.0, 0.0, W_COLL * cos(alpha), W_COLL * sin(alpha)]
         prob = ODEProblem(lc_canonical_cr3bp, zeta0, (0.0, -tspan), [mu, C])
-        sol  = solve(prob, Tsit5(); abstol = 1e-10, reltol = 1e-10, maxiters = Int(1e6), callback = cb_escape)
+        sol  = solve(prob, Vern9(); abstol = 1e-13, reltol = 1e-13, maxiters = Int(1e6), callback = cb_escape)
         num_points = length(sol.t)
         traj_cart = zeros(4, num_points)
         traj_lc = zeros(4, num_points)
         for i in 1:num_points
-            traj_cart[:, i] = lc2cart_or_nan(sol.u[i], mu)
+            traj_cart[:, i] = lc2cart(sol.u[i], mu)
             traj_lc[:, i] = sol.u[i]
         end
         push!(trajs_cart, traj_cart)
