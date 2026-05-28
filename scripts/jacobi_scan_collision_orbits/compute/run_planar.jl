@@ -47,8 +47,9 @@ end
 all_cart = Dict(C_values[j] => buf_cart[j] for j in eachindex(C_values))
 all_lc   = Dict(C_values[j] => buf_lc[j]   for j in eachindex(C_values))
 
-mkpath("../../../data")
-save("../../../data/jacobi_scan_planar.jld2",
+const DATA_DIR = joinpath(@__DIR__, "../../../data")
+mkpath(DATA_DIR)
+save(joinpath(DATA_DIR, "jacobi_scan_planar.jld2"),
      "cart",     all_cart,
      "lc",       all_lc,
      "C_values", C_values,
