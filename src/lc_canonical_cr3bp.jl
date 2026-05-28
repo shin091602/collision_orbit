@@ -9,8 +9,8 @@ function lc_canonical_cr3bp(dzeta, zeta, params, t)
     r = u[1]^2 + u[2]^2
     r_E = sqrt((u[1]^2 - u[2]^2 + 1)^2 + 4 * u[1]^2 * u[2]^2)
 
-    dzeta[1] = w[1]/4 + r * u[2] / 2
-    dzeta[2] = w[2]/4 - r * u[1] / 2
+    dzeta[1] = w[1]/4 + (r - 1 + mu) * u[2] / 2
+    dzeta[2] = w[2]/4 - (r + 1 - mu) * u[1] / 2
 
     dzeta[3] = (-C * u[1]
                 - w[1] * u[1] * u[2]
