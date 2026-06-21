@@ -34,24 +34,21 @@ end
 
 function generate_planar_ks_collision_grid(N::Int, mu::Float64)
     # === 使用例 ===
-    # grid = generate_planar_ks_collision_grid(360, 0.01215)    
+    # grid = generate_planar_ks_collision_grid(360, 0.01215)
 
-    R = sqrt(8.0 * mu)    
-    w_grid = Vector{NTuple{4, Float64}}(undef, N)
+    R = sqrt(8.0 * mu)
+    w_grid   = Vector{NTuple{4, Float64}}(undef, N)
+    phi_grid = Vector{Float64}(undef, N)
     d_phi = π / N
 
     for i in 0:(N-1)
         phi = i * d_phi
         # 平面問題なので w3 = w4 = 0
-        w1 = R * cos(phi)
-        w2 = R * sin(phi)
-        w3 = 0.0
-        w4 = 0.0
-
-        w_grid[i+1] = (w1, w2, w3, w4)
+        w_grid[i+1]   = (R * cos(phi), R * sin(phi), 0.0, 0.0)
+        phi_grid[i+1] = phi
     end
-    
-    return w_grid
+
+    return w_grid, phi_grid
 end
 
 
