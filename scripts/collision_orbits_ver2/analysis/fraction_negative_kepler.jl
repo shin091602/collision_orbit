@@ -59,7 +59,8 @@ for alt in altitudes_km
     hm = heatmap!(ax2, C_values, phi_vals, is_neg_mat,
                   colormap = [:lightgray, :steelblue], colorrange = (0.0, 1.0))
     Colorbar(fig2[1, 2], hm,
-             ticks = ([0.0, 1.0], ["No", "Yes"]), width = 18)
+             ticks = ([0.25, 0.75], ["No", "Yes"]), ticklabelsize = 12,
+             width = 18, ticksize = 0)
     save(joinpath(results_dir, "plot2_phi_range_$(alt)km.png"), fig2, px_per_unit = 2)
 
     # Plot 3: φ vs 割合（全ヤコビ定数にわたる平均）
@@ -77,7 +78,7 @@ for alt in altitudes_km
         yminorticks     = IntervalsBetween(4),
         yminorgridvisible = true,
     )
-    lines!(ax3, phi_vals, frac_by_phi, color = :royalblue, linewidth = 2)
+    lines!(ax3, phi_vals, frac_by_phi, color = :royalblue, linewidth = 0.6)
     save(joinpath(results_dir, "plot3_frac_by_phi_$(alt)km.png"), fig3, px_per_unit = 2)
 
     # Plot 4: Plot 3 の深掘り — 分母を「負エネルギー軌道が存在する C」に限定
@@ -96,7 +97,7 @@ for alt in altitudes_km
         yminorticks       = IntervalsBetween(4),
         yminorgridvisible = true,
     )
-    lines!(ax4, phi_vals, frac_by_phi_nz, color = :crimson, linewidth = 2)
+    lines!(ax4, phi_vals, frac_by_phi_nz, color = :crimson, linewidth = 0.6)
     save(joinpath(results_dir, "plot4_frac_by_phi_restricted_$(alt)km.png"), fig4, px_per_unit = 2)
 
     println("$(alt) km 完了  (N_C_nonzero = $N_C_nonzero / $N_C)")
